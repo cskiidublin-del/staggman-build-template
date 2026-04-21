@@ -2,18 +2,17 @@ import { glob } from "astro/loaders";
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 
-const blog = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
-	loader: glob({ base: "./src/content/blog", pattern: "**/*.{md,mdx}" }),
-	// Type-check frontmatter using a schema
-	schema: z.object({
-		title: z.string(),
-		description: z.string(),
-		// Transform string to Date object
-		pubDate: z.coerce.date(),
-		updatedDate: z.coerce.date().optional(),
-		heroImage: z.string().optional(),
-	}),
+const discography = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    artist: z.string(),
+    year: z.number(),
+    role: z.string(),        // e.g. "Producer", "Mix Engineer"
+    cover: z.string(),       // path to album art
+    streamingUrl: z.string().optional(),
+  }),
 });
+
 
 export const collections = { blog };
